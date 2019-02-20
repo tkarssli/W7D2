@@ -34,27 +34,32 @@ class TodoForm extends React.Component {
       done: false
     };
     
-    this.props.receiveTodo(todo);
-    this.state.title = "";
-    this.state.body = "";
-    document.getElementById('form-body').value = this.state.body;
+    this.props.createTodo(todo).then(
+      () => this.setState({title: '', body: ''})
+    );
   }
 
   render() {
     return (
-      <form onSubmit={this.submit}>
-        <label>Title: 
-          <input 
-          type="text"
-          value = {this.state.title}
-          onChange={this.handleTitleChange}
-          />
-        </label>
-        <label>Body:
-          <textarea id="form-body" onChange={this.handleBodyChange}></textarea>
-        </label>
-        <button>Create Todo for Frodo</button>
-      </form>
+      <>
+        <div>{this.props.errors.map(err => <p>{err}</p>)}</div>
+        <form onSubmit={this.submit}>
+          <label>Title: 
+            <input 
+            type="text"
+            value = {this.state.title}
+            onChange={this.handleTitleChange}
+            />
+          </label>
+          <label>Body:
+            <textarea
+            id="form-body" 
+            onChange={this.handleBodyChange}
+            value={this.state.body}></textarea>
+          </label>
+          <button>Create Todo for Frodo</button>
+        </form>
+      </>
     )
   }
 }

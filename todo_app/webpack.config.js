@@ -4,7 +4,7 @@ var path = require('path');
 module.exports = {
   entry: './frontend/todo_redux.jsx',
   output: {
-    filename: './bundle.js',
+    filename: '../app/assets/javascripts/bundle.js',
   },
   module: {
     rules: [
@@ -20,7 +20,7 @@ module.exports = {
       }
     ]
   },
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '*']
   }

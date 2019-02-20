@@ -1,20 +1,7 @@
 import _ from "lodash"
-import { RECEIVE_TODOS, RECEIVE_TODO } from "../actions/todo_actions";
+import { RECEIVE_TODOS, RECEIVE_TODO, REMOVE_TODO, REFRESH_TODO } from "../actions/todo_actions";
 
-const initialState = {
-  1: {
-    id: 1,
-    title: 'wash car',
-    body: 'with soap',
-    done: false
-  },
-  2: {
-    id: 2,
-    title: 'wash dog',
-    body: 'with shampoo',
-    done: true
-  },
-};
+const initialState = {};
 
 const todosReducer = (state = initialState, action) => {
   let todos;
@@ -31,6 +18,17 @@ const todosReducer = (state = initialState, action) => {
       todos[action.todo.id] = action.todo;
       return todos;
 
+    case REMOVE_TODO:
+      todos = _.merge({}, state);
+      delete todos[action.todo.id];
+      return todos;
+
+    case REFRESH_TODO:
+      todos = _.merge({}, state);
+      let isDone = todos[action.todo.id].done;
+      todos[action.todo.id].done = isDone ? false : true;
+      return todos;
+      
     default:
       return state;
   }
